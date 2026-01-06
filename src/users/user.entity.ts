@@ -28,7 +28,7 @@ export class User {
   password: string; // Şifreler hash'lenmiş (şifrelenmiş) olarak tutulacak.
 
   @Column({
-    type: 'nvarchar', // MSSQL için metin formatı (String)
+    type: 'varchar', // MSSQL için metin formatı (String)
     length: 20,       // En fazla 20 karakter olsun
     default: UserRole.CUSTOMER,
   })
