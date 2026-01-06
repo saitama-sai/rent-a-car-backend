@@ -27,17 +27,13 @@ import { RentalsModule } from './rentals/rentals.module';
       serveRoot: '/userUploads',
     }),
     TypeOrmModule.forRoot({
-      type: 'mssql',
-      host: process.env.DB_HOST || 'localhost',
-      port: 1433,
-      username: 'sa',
-      password: process.env.DB_PASSWORD,
-      database: 'rentacar_db',
+      type: 'postgres', 
+      // DÜZELTİLEN SATIR BURASI (psql silindi, tırnaklar eklendi):
+      url: 'postgresql://neondb_owner:npg_76kgWuhKprba@ep-purple-hat-agglmpco-pooler.c-2.eu-central-1.aws.neon.tech/neondb?sslmode=require',
       entities: [User, Brand, Car, Feature, Rental],
       synchronize: true,
-      options: {
-        encrypt: false,
-        trustServerCertificate: true,
+      ssl: {
+        rejectUnauthorized: false,
       },
     }),
     CarsModule,
