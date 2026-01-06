@@ -1,0 +1,22 @@
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Feature } from './feature.entity';
+
+@Injectable()
+export class FeaturesService {
+  constructor(
+    @InjectRepository(Feature)
+    private featureRepository: Repository<Feature>,
+  ) {}
+
+  create(name: string) {
+    // Basitçe gelen ismi kaydet
+    const feature = this.featureRepository.create({ name });
+    return this.featureRepository.save(feature);
+  }
+
+  findAll() {
+    return this.featureRepository.find();
+  }
+}

@@ -1,0 +1,20 @@
+import { Module } from '@nestjs/common';
+import { AuthService } from './auth.service';
+import { AuthController } from './auth.controller';
+import { UsersModule } from '../users/users.module'; // Users servisine ihtiyacımız var
+import { JwtModule } from '@nestjs/jwt';
+import { JwtStrategy } from './jwt.strategy'; // 1. Import et
+
+@Module({
+  imports: [
+    UsersModule,
+    JwtModule.register({
+      global: true, // Tüm projede geçerli olsun
+      secret: 'COK_GIZLI_ANAHTAR_BURAYA_YAZILACAK', // Normalde .env dosyasında saklanır
+      signOptions: { expiresIn: '1h' }, // Token 1 saat sonra geçersiz olsun
+    }),
+  ],
+  providers: [AuthService, JwtStrategy], 
+  controllers: [AuthController],
+})
+export class AuthModule {}
