@@ -42,7 +42,7 @@ export class UsersService {
 
     if (attrs.password && attrs.password.trim() !== '') {
       const salt = await bcrypt.genSalt();
-      attrs.password = await bcrypt.hash(attrs.password, salt);
+      attrs.password = await bcrypt.hash(attrs.password.trim(), salt);
     } else {
       delete attrs.password;
     }
