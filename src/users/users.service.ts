@@ -40,9 +40,11 @@ export class UsersService {
       throw new Error('User not found');
     }
 
-    if (attrs.password) {
+    if (attrs.password && attrs.password.trim() !== '') {
       const salt = await bcrypt.genSalt();
       attrs.password = await bcrypt.hash(attrs.password, salt);
+    } else {
+      delete attrs.password;
     }
 
     Object.assign(user, attrs);
