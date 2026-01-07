@@ -32,7 +32,7 @@ export class UsersController {
   @Post(':id/upload-profile-picture')
   @UseInterceptors(FileInterceptor('file', {
     storage: diskStorage({
-      destination: './userUploads',
+      destination: './uploads',
       filename: (req, file, cb) => {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
         const ext = extname(file.originalname);

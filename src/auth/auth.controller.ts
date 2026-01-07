@@ -1,6 +1,6 @@
 import { Controller, Post, Body, UnauthorizedException, Get, UseGuards, Request, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AuthGuard } from '@nestjs/passport'; 
+import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
@@ -25,7 +25,7 @@ export class AuthController {
   @Post('register')
   @UseInterceptors(FileInterceptor('file', {
     storage: diskStorage({
-      destination: './userUploads',
+      destination: './uploads',
       filename: (req, file, cb) => {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
         const ext = extname(file.originalname);
@@ -36,7 +36,7 @@ export class AuthController {
   async register(@Body() body: any, @UploadedFile() file: any) {
     const userData = { ...body };
     if (file) {
-      userData.profilePictureUrl = `/userUploads/${file.filename}`;
+      userData.profilePictureUrl = `/uploads/${file.filename}`;
     }
     return this.authService.register(userData);
   }
