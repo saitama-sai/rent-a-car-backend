@@ -40,6 +40,10 @@ export class UsersService {
       throw new Error('User not found');
     }
 
+    // Güvenlik için email ve id alanlarının güncellenmesini engelle
+    delete attrs.email;
+    delete (attrs as any).id;
+
     if (attrs.password && attrs.password.trim() !== '') {
       const salt = await bcrypt.genSalt();
       attrs.password = await bcrypt.hash(attrs.password.trim(), salt);

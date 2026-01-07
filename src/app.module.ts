@@ -23,11 +23,11 @@ import { RentalsModule } from './rentals/rentals.module';
   imports: [
     ConfigModule.forRoot(),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'userUploads'),
-      serveRoot: '/userUploads',
+      rootPath: join(__dirname, '..', 'uploads'),
+      serveRoot: '/uploads',
     }),
     TypeOrmModule.forRoot({
-      type: 'postgres', 
+      type: 'postgres',
       // DÜZELTİLEN SATIR BURASI (psql silindi, tırnaklar eklendi):
       url: 'postgresql://neondb_owner:npg_76kgWuhKprba@ep-purple-hat-agglmpco-pooler.c-2.eu-central-1.aws.neon.tech/neondb?sslmode=require',
       entities: [User, Brand, Car, Feature, Rental],
