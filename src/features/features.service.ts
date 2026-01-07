@@ -8,7 +8,7 @@ export class FeaturesService {
   constructor(
     @InjectRepository(Feature)
     private featureRepository: Repository<Feature>,
-  ) {}
+  ) { }
 
   create(name: string) {
     // Basitçe gelen ismi kaydet
@@ -18,5 +18,14 @@ export class FeaturesService {
 
   findAll() {
     return this.featureRepository.find();
+  }
+
+  async update(id: number, name: string): Promise<Feature | null> {
+    await this.featureRepository.update(id, { name });
+    return this.featureRepository.findOneBy({ id });
+  }
+
+  async delete(id: number): Promise<void> {
+    await this.featureRepository.delete(id);
   }
 }

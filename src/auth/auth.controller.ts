@@ -1,6 +1,6 @@
 import { Controller, Post, Body, UnauthorizedException, Get, UseGuards, Request, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AuthGuard } from '@nestjs/passport'; // 1. Import et
+import { AuthGuard } from '@nestjs/passport'; 
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
@@ -41,7 +41,6 @@ export class AuthController {
     return this.authService.register(userData);
   }
 
-  // 2. YENİ EKLENEN KISIM: Korumalı Profil Sayfası
   @UseGuards(AuthGuard('jwt')) // <-- Bu satır "Sadece Token'ı olan girebilir" der
   @Get('profile')
   getProfile(@Request() req) {

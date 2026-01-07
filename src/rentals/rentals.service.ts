@@ -75,4 +75,16 @@ export class RentalsService {
             }
         });
     }
+
+    async update(id: number, rentalData: Partial<Rental>): Promise<Rental | null> {
+        await this.rentalsRepository.update(id, rentalData);
+        return this.rentalsRepository.findOne({
+            where: { id },
+            relations: ['user', 'car', 'car.brand']
+        });
+    }
+
+    async delete(id: number): Promise<void> {
+        await this.rentalsRepository.delete(id);
+    }
 }
