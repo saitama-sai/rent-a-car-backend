@@ -81,4 +81,14 @@ export class CarService {
   async delete(id: number): Promise<void> {
     await this.carRepository.delete(id);
   }
+
+  // Araba Teslim Al (Müsait hale getir)
+  async returnCar(id: number): Promise<Car> {
+    const car = await this.carRepository.findOneBy({ id });
+    if (!car) {
+      throw new Error('Araba bulunamadı');
+    }
+    car.available = true;
+    return this.carRepository.save(car);
+  }
 }

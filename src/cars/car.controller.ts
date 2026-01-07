@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, UseGuards, Put, Delete, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, UseGuards, Put, Delete, Param, Patch } from '@nestjs/common';
 import { CarService } from './car.service';
 import { Car } from './car.entity';
 import { AuthGuard } from '@nestjs/passport';
@@ -59,5 +59,12 @@ export class CarController {
   @Roles(UserRole.ADMIN)
   deleteCar(@Param('id') id: string) {
     return this.carService.delete(+id);
+  }
+
+  @Patch(':id/return')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(UserRole.ADMIN)
+  returnCar(@Param('id') id: string) {
+    return this.carService.returnCar(+id);
   }
 }
