@@ -17,6 +17,10 @@ export class UsersService {
 
   // 2. Metodu 'async' yaptık çünkü şifreleme işlemi biraz zaman alır
   async create(email: string, password: string, role: UserRole = UserRole.CUSTOMER, firstName?: string, lastName?: string, profilePictureUrl?: string) {
+    const existingUser = await this.findOne(email);
+    if (existingUser) {
+      throw new Error('Bu email adresi zaten kullanımda!');
+    }
 
     // 3. Şifreyi Hashle (Tuzla ve karıştır)
     const salt = await bcrypt.genSalt();

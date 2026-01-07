@@ -38,7 +38,11 @@ export class AuthController {
     if (file) {
       userData.profilePictureUrl = `/uploads/${file.filename}`;
     }
-    return this.authService.register(userData);
+    try {
+      return await this.authService.register(userData);
+    } catch (error: any) {
+      throw new UnauthorizedException(error.message || 'Kayıt sırasında bir hata oluştu');
+    }
   }
 
   @UseGuards(AuthGuard('jwt')) // <-- Bu satır "Sadece Token'ı olan girebilir" der
